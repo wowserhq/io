@@ -4,10 +4,11 @@
       "presets": [
         ["@babel/preset-env", {
           "targets": {
-            "node": "8.12",
+            "node": "12.22",
             "browsers": [
-              "last 2 versions",
+              "last 4 versions",
               "not ie 1-11",
+              "not ie_mob 1-11",
               "not android > 0"
             ]
           }
@@ -19,10 +20,11 @@
       "presets": [
         ["@babel/preset-env", {
           "targets": {
-            "node": "8.12",
+            "node": "12.22",
             "browsers": [
-              "last 2 versions",
+              "last 4 versions",
               "not ie 1-11",
+              "not ie_mob 1-11",
               "not android > 0"
             ]
           },
@@ -35,7 +37,7 @@
       "presets": [
         ["@babel/preset-env", {
           "targets": {
-            "node": "8.12"
+            "node": "12.22"
           }
         }]
       ]
