@@ -5,12 +5,21 @@
   "author": "Wowser Contributors",
   "repository": "github:wowserhq/io",
   "license": "MIT",
-  "main": "dist/index",
+  "main": "./dist/cjs/index.mjs",
+  "module": "./dist/esm/index.mjs",
+  "exports": {
+    "require": "./dist/cjs/index.mjs",
+    "import": "./dist/esm/index.mjs"
+  },
+  "types": "./dist/types/index.d.mts",
   "scripts": {
-    "build": "npm run clean && npm run test && npm run build:cjs && npm run build:esm",
-    "build:cjs": "BABEL_ENV=cjs babel src/lib/ --out-dir dist/",
-    "build:esm": "BABEL_ENV=esm babel src/lib/ --out-dir dist/ --keep-file-extension",
-    "clean": "rimraf ./dist",
+    "build": "npm run clean && npm run test && npm run build:cjs && npm run build:esm && npm run build:types && npm run build:package",
+    "build:cjs": "tsc --module commonjs --outDir ./dist/cjs",
+    "build:esm": "tsc --module node16 --outDir ./dist/esm",
+    "build:types": "tsc --module node16 --emitDeclarationOnly --declaration --declarationDir ./dist/types",
+    "build:package": "node ./script/build-package.js",
+    "clean": "node ./script/clean.js",
+    "format": "prettier ./src/**/* --write",
     "prepublishOnly": "npm run build",
     "test": "exit 0"
   },
@@ -18,9 +27,9 @@
     "wowser"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "rimraf": "^3.0.2"
+    "@types/node": "^20.9.3",
+    "fs-extra": "^11.0.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2"
   }
 }

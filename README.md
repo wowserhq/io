@@ -1,6 +1,6 @@
 # Wowser IO
 
-[![Join chat](https://img.shields.io/badge/gitter-join_chat-blue.svg?style=flat)](https://gitter.im/wowserhq/wowser)
+[![Join community](https://img.shields.io/badge/discord-join_community-blue.svg?style=flat)](https://discord.com/invite/DeVVKVg)
 
 Wowser IO is an IO utility library for Wowser.
 
