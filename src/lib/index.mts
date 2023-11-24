@@ -1,6 +1,7 @@
 import ArrayIo from './type/ArrayIo.mjs';
 import StringIo from './type/StringIo.mjs';
 import StructIo from './type/StructIo.mjs';
+import TlvIo, { TlvValueCallback } from './type/TlvIo.mjs';
 import { getType } from './util.mjs';
 
 const array = (type, options) => new ArrayIo(type, options);
@@ -8,6 +9,12 @@ const array = (type, options) => new ArrayIo(type, options);
 const string = (options) => new StringIo(options);
 
 const struct = (fields, options) => new StructIo(fields, options);
+
+const tlv = (
+  tagType: IoType,
+  lengthType: IoType,
+  valueCallback: TlvValueCallback,
+) => new TlvIo(tagType, lengthType, valueCallback);
 
 const int8 = {
   read: (stream: Stream) => stream.readInt8(),
@@ -127,6 +134,7 @@ const io = {
   array,
   string,
   struct,
+  tlv,
   int8,
   uint8,
   int16,

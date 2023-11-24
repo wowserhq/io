@@ -1,0 +1,90 @@
+import { Endianness, getStream } from '../util.mjs';
+
+type TlvValueCallback = (type: string | number, length: number) => IoType;
+
+type TlvOptions = {
+  endianness?: Endianness;
+};
+
+type Tlv = {
+  tag: string | number;
+  length: number;
+  value: any;
+};
+
+/**
+ * TlvIo provides an IoType for tag-length-value (sometimes called type-length-value) types. The tag can be any IoType
+ * that resolves to a string or number. The length can be any IoType that resolves to a number. The value can be any
+ * IoType.
+ */
+class TlvIo implements IoType {
+  #tagType: IoType;
+  #lengthType: IoType;
+  #valueCallback: TlvValueCallback;
+  #options: TlvOptions;
+
+  /**
+   * The TlvIo() constructor creates new TlvIo objects.
+   *
+   * @param tagType - An IoType that resolves to a string or number.
+   * @param lengthType - An IoType that resolves to a number.
+   * @param valueCallback - A function that returns any IoType from the given tag and length.
+   * @param options
+   */
+  constructor(
+    tagType: IoType,
+    lengthType: IoType,
+    valueCallback: TlvValueCallback,
+    options: TlvOptions = {},
+  ) {
+    this.#tagType = tagType;
+    this.#lengthType = lengthType;
+    this.#valueCallback = valueCallback;
+    this.#options = options;
+  }
+
+  read(source: Source, context: Context = {}): Tlv {
+    const stream = getStream(source, this.#options.endianness);
+
+    context.local = null;
+    context.root = context.root ?? null;
+
+    const tagValue = this.#tagType.read(stream, context);
+    const lengthValue = this.#lengthType.read(stream, context);
+
+    const valueType = this.#valueCallback(tagValue, lengthValue);
+    const valueBytes = stream.readBytes(lengthValue);
+
+    let valueValue = valueBytes;
+    if (valueType && valueType.read) {
+      const valueStream = getStream(valueBytes, this.#options.endianness);
+      valueValue = valueType.read(valueStream, context);
+    }
+
+    return {
+      tag: tagValue,
+      length: lengthValue,
+      value: valueValue,
+    };
+  }
+
+  write(source: Source, value: Tlv, context: Context = {}) {
+    const stream = getStream(source, this.#options.endianness);
+
+    context.local = null;
+    context.root = context.root ?? null;
+
+    this.#tagType.write(stream, value.tag, context);
+    this.#lengthType.write(stream, value.length, context);
+
+    const valueType = this.#valueCallback(value.tag, value.length);
+    if (valueType && valueType.write) {
+      valueType.write(stream, value.value, context);
+    } else {
+      stream.writeBytes(value.value);
+    }
+  }
+}
+
+export default TlvIo;
+export { TlvValueCallback };
