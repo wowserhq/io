@@ -23,6 +23,11 @@ class StringIo implements IoType {
     this.#encoder = new TextEncoder();
   }
 
+  getSize(value: string) {
+    const encodedSize = this.#encoder.encode(value).byteLength;
+    return this.#terminate ? encodedSize + 1 : encodedSize;
+  }
+
   #readRawBytes(stream: Stream, size: number | undefined) {
     if (typeof size === 'number') {
       const untrimmedBytes = stream.readBytes(size);

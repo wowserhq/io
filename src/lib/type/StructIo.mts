@@ -20,6 +20,16 @@ class StructIo implements IoType {
     );
   }
 
+  getSize(value: any) {
+    let size = 0;
+
+    for (const [name, type] of Object.entries(this.#fields)) {
+      size += getType(type).getSize(value[name]);
+    }
+
+    return size;
+  }
+
   read(source: Source, context: Context = {}) {
     const stream = getStream(source, this.#options.endianness);
     const value = {};
