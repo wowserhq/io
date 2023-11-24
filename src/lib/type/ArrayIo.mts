@@ -4,7 +4,7 @@ type ArrayOptions = {
   size?: number;
 };
 
-class ArrayType implements IoType {
+class ArrayIo implements IoType {
   #type: IoType;
   #options: ArrayOptions;
 
@@ -54,4 +54,4 @@ class ArrayType implements IoType {
   }
 }
 
-export default ArrayType;
+export default ArrayIo;
