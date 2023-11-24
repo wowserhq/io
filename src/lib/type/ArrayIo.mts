@@ -17,6 +17,16 @@ class ArrayIo implements IoType {
     this.#options = options;
   }
 
+  getSize(value: any[]) {
+    let size = 0;
+
+    for (const v of value) {
+      size += this.#type.getSize(v);
+    }
+
+    return size;
+  }
+
   read(source: Source, context: Context = {}) {
     const stream = getStream(source);
     const value = [];

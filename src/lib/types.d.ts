@@ -4,6 +4,7 @@ type Context = {
 };
 
 type IoType = {
+  getSize: (value: any) => number;
   read: (source: Source, context: Context) => any;
   write?: (source: Source, value: any, context: Context) => any;
 };

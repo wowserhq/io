@@ -47,6 +47,14 @@ class TlvIo implements IoType {
     this.#options = options;
   }
 
+  getSize(value: Tlv) {
+    const tagSize = this.#tagType.getSize(value.tag);
+    const lengthSize = this.#lengthType.getSize(value.length);
+    const valueSize = value.length;
+
+    return tagSize + lengthSize + valueSize;
+  }
+
   read(source: Source, context: Context = {}): Tlv {
     const stream = getStream(source, this.#options.endianness);
 
