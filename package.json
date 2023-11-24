@@ -20,8 +20,9 @@
     "build:package": "node ./script/build-package.js",
     "clean": "node ./script/clean.js",
     "format": "prettier ./src/**/* --write",
+    "lint": "eslint --ignore-path .gitignore",
     "prepublishOnly": "npm run build",
-    "test": "exit 0",
+    "test": "npm run lint && exit 0",
     "prepare": "husky install"
   },
   "keywords": [
@@ -29,6 +30,10 @@
   ],
   "devDependencies": {
     "@types/node": "^20.9.3",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
     "fs-extra": "^11.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
