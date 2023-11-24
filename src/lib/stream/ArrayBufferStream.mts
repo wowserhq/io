@@ -344,6 +344,7 @@ class ArrayBufferStream implements Stream {
   writeBytes(value: Uint8Array) {
     const view = new Uint8Array(this.#buffer);
     view.set(value, this.#offset);
+    this.#offset += value.byteLength;
   }
 }
 
