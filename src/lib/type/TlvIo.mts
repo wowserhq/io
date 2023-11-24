@@ -1,6 +1,9 @@
 import { Endianness, getStream } from '../util.mjs';
 
-type TlvValueCallback = (type: string | number, length: number) => IoType;
+type TlvValueCallback = (
+  type: string | number,
+  length: number,
+) => IoType | undefined | null;
 
 type TlvOptions = {
   endianness?: Endianness;
@@ -15,7 +18,7 @@ type Tlv = {
 /**
  * TlvIo provides an IoType for tag-length-value (sometimes called type-length-value) types. The tag can be any IoType
  * that resolves to a string or number. The length can be any IoType that resolves to a number. The value can be any
- * IoType.
+ * IoType, or a Uint8Array.
  */
 class TlvIo implements IoType {
   #tagType: IoType;
@@ -28,7 +31,8 @@ class TlvIo implements IoType {
    *
    * @param tagType - An IoType that resolves to a string or number.
    * @param lengthType - An IoType that resolves to a number.
-   * @param valueCallback - A function that returns any IoType from the given tag and length.
+   * @param valueCallback - A function that returns any IoType from the given tag and length. If the callback returns
+   *   undefined or null, the value will be read as a Uint8Array.
    * @param options
    */
   constructor(
