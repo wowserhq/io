@@ -10,7 +10,7 @@ type StringOptions = {
   terminate?: boolean;
 };
 
-class StringType implements IoType {
+class StringIo implements IoType {
   #options: StringOptions;
   #decoder: TextDecoder;
   #encoder: TextEncoder;
@@ -66,4 +66,4 @@ class StringType implements IoType {
   }
 }
 
-export default StringType;
+export default StringIo;

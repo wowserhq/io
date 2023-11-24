@@ -1,6 +1,6 @@
 import { getStream, getType } from '../util.mjs';
 
-class StructType implements IoType {
+class StructIo implements IoType {
   #fields;
   #options;
 
@@ -14,7 +14,7 @@ class StructType implements IoType {
   }
 
   extend(fields = {}, options = {}) {
-    return new StructType(
+    return new StructIo(
       { ...this.#fields, ...fields },
       { ...this.#options, ...options },
     );
@@ -46,4 +46,4 @@ class StructType implements IoType {
   }
 }
 
-export default StructType;
+export default StructIo;

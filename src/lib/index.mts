@@ -1,13 +1,13 @@
-import StructType from './type/StructType.mjs';
-import StringType from './type/StringType.mjs';
-import ArrayType from './type/ArrayType.mjs';
+import ArrayIo from './type/ArrayIo.mjs';
+import StringIo from './type/StringIo.mjs';
+import StructIo from './type/StructIo.mjs';
 import { getType } from './util.mjs';
 
-const array = (type, options) => new ArrayType(type, options);
+const array = (type, options) => new ArrayIo(type, options);
 
-const string = (options) => new StringType(options);
+const string = (options) => new StringIo(options);
 
-const struct = (fields, options) => new StructType(fields, options);
+const struct = (fields, options) => new StructIo(fields, options);
 
 const int8 = {
   read: (stream: Stream) => stream.readInt8(),
