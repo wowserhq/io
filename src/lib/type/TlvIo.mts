@@ -87,13 +87,20 @@ class TlvIo implements IoType {
     context.root = context.root ?? null;
 
     this.#tagType.write(stream, value.tag, context);
+
     this.#lengthType.write(stream, value.length, context);
+    const expectedEndOffset = stream.offset + value.length;
 
     const valueType = this.#valueCallback(value.tag, value.length);
     if (valueType && valueType.write) {
       valueType.write(stream, value.value, context);
     } else {
       stream.writeBytes(value.value);
+    }
+
+    // Account for underruns and overruns
+    if (stream.offset !== expectedEndOffset) {
+      stream.offset = expectedEndOffset;
     }
   }
 }
