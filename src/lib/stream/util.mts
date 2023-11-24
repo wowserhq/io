@@ -16,7 +16,12 @@ const openStream = (source: Source, endianness = Endianness.Little): Stream => {
   if (typeof source === 'string' || typeof source === 'number') {
     return new FsStream(source, endianness);
   } else if (ArrayBuffer.isView(source)) {
-    return new ArrayBufferStream(source.buffer, endianness);
+    return new ArrayBufferStream(
+      source.buffer,
+      endianness,
+      source.byteOffset,
+      source.byteLength,
+    );
   } else if (source instanceof ArrayBuffer) {
     return new ArrayBufferStream(source, endianness);
   } else {

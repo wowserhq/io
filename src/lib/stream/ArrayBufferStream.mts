@@ -7,9 +7,14 @@ class ArrayBufferStream implements Stream {
   #littleEndian: boolean;
   #offset: number;
 
-  constructor(source: ArrayBuffer, endianness = Endianness.Little) {
+  constructor(
+    source: ArrayBuffer,
+    endianness = Endianness.Little,
+    viewOffset: number = 0,
+    viewSize?: number,
+  ) {
     this.#buffer = source;
-    this.#view = new DataView(source);
+    this.#view = new DataView(source, viewOffset, viewSize);
     this.#endianness = endianness;
     this.#littleEndian = endianness === Endianness.Little;
     this.#offset = 0;
@@ -192,7 +197,11 @@ class ArrayBufferStream implements Stream {
   }
 
   readBytes(size: number) {
-    const value = new Uint8Array(this.#buffer, this.#offset, size);
+    const value = new Uint8Array(
+      this.#buffer,
+      this.#view.byteOffset + this.#offset,
+      size,
+    );
     this.#offset += size;
     return value;
   }
@@ -208,7 +217,11 @@ class ArrayBufferStream implements Stream {
 
     const end = this.#offset - 1;
 
-    return new Uint8Array(this.#buffer, start, start - end);
+    return new Uint8Array(
+      this.#buffer,
+      this.#view.byteOffset + start,
+      start - end,
+    );
   }
 
   writeInt8(value: number) {
@@ -342,7 +355,7 @@ class ArrayBufferStream implements Stream {
   }
 
   writeBytes(value: Uint8Array) {
-    const view = new Uint8Array(this.#buffer);
+    const view = new Uint8Array(this.#buffer, this.#view.byteOffset);
     view.set(value, this.#offset);
     this.#offset += value.byteLength;
   }
