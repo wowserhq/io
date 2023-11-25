@@ -29,7 +29,7 @@ class ArrayIo implements IoType {
     return size;
   }
 
-  read(source: Source, context: Context = {}) {
+  read(source: IoSource, context: IoContext = {}) {
     const stream = getStream(source);
     const value = [];
     const size = this.#options.size;
@@ -50,7 +50,7 @@ class ArrayIo implements IoType {
     return value;
   }
 
-  write(source: Source, value: any[], context: Context = {}) {
+  write(source: IoSource, value: any[], context: IoContext = {}) {
     const stream = getStream(source);
     const size = value.length;
     const type = this.#type;

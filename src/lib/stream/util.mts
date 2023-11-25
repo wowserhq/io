@@ -12,7 +12,10 @@ const isStream = (ref: any) => {
   return false;
 };
 
-const openStream = (source: Source, endianness = Endianness.Little): Stream => {
+const openStream = (
+  source: IoSource,
+  endianness = Endianness.Little,
+): IoStream => {
   if (typeof source === 'string' || typeof source === 'number') {
     return new FsStream(source, endianness);
   } else if (ArrayBuffer.isView(source)) {

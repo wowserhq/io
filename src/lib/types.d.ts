@@ -1,17 +1,11 @@
-type Context = {
+type IoContext = {
   local?: object;
   root?: object;
 };
 
-type IoType = {
-  getSize: (value: any) => number;
-  read: (source: Source, context: Context) => any;
-  write?: (source: Source, value: any, context: Context) => any;
-};
+type IoSource = string | number | ArrayBuffer | IoStream;
 
-type Source = string | number | ArrayBuffer | Stream;
-
-type Stream = {
+type IoStream = {
   eof: boolean;
   offset: number;
 
@@ -73,4 +67,10 @@ type Stream = {
   writeFloat64Be: (value: number) => void;
   writeFloat64Le: (value: number) => void;
   writeBytes: (value: Uint8Array) => void;
+};
+
+type IoType = {
+  getSize: (value: any) => number;
+  read: (source: IoSource, context: IoContext) => any;
+  write?: (source: IoSource, value: any, context: IoContext) => any;
 };
