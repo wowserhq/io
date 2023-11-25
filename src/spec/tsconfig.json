@@ -1,0 +1,6 @@
+{
+  "moduleResolution": "node16",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true
+  }
+}
