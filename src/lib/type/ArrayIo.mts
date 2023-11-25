@@ -1,4 +1,5 @@
-import { getStream, validateType } from '../util.mjs';
+import { validateType } from '../util.mjs';
+import { openStream } from '../stream/util.mjs';
 
 type ArrayOptions = {
   size?: number;
@@ -30,7 +31,7 @@ class ArrayIo implements IoType {
   }
 
   read(source: IoSource, context: IoContext = {}) {
-    const stream = getStream(source);
+    const stream = openStream(source);
     const value = [];
     const size = this.#options.size;
 
@@ -51,7 +52,7 @@ class ArrayIo implements IoType {
   }
 
   write(source: IoSource, value: any[], context: IoContext = {}) {
-    const stream = getStream(source);
+    const stream = openStream(source);
     const size = value.length;
     const type = this.#type;
 

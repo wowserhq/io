@@ -1,4 +1,5 @@
-import { Endianness, getStream, validateType } from '../util.mjs';
+import { Endianness, validateType } from '../util.mjs';
+import { openStream } from '../stream/util.mjs';
 
 type StructFields = Record<string, IoType>;
 
@@ -42,7 +43,7 @@ class StructIo implements IoType {
   }
 
   read(source: IoSource, context: IoContext = {}) {
-    const stream = getStream(source, this.#options.endianness);
+    const stream = openStream(source, this.#options.endianness);
     const value = {};
 
     context.local = value;
@@ -56,7 +57,7 @@ class StructIo implements IoType {
   }
 
   write(source: IoSource, value: object, context: IoContext = {}) {
-    const stream = getStream(source, this.#options.endianness);
+    const stream = openStream(source, this.#options.endianness);
 
     context.local = value;
     context.root = context.root ?? value;
