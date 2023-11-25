@@ -8,14 +8,14 @@ enum Endianness {
 const getStream = (source: Source, endianness = Endianness.Little): Stream =>
   isStream(source) ? (source as Stream) : openStream(source, endianness);
 
-const getType = (type: Function | IoType): IoType => {
-  const resolvedType = typeof type === 'function' ? type() : type;
-
-  if (typeof resolvedType.read !== 'function') {
-    throw new Error('Missing required function: read');
+const validateType = (type: IoType) => {
+  if (typeof type.getSize !== 'function') {
+    throw new Error('Missing required function: getSize');
   }
 
-  return resolvedType;
+  if (typeof type.read !== 'function') {
+    throw new Error('Missing required function: read');
+  }
 };
 
 const resolveValue = (ref: number | string, ...objects: object[]) => {
@@ -31,4 +31,4 @@ const resolveValue = (ref: number | string, ...objects: object[]) => {
   }
 };
 
-export { Endianness, getStream, getType, resolveValue };
+export { Endianness, getStream, validateType, resolveValue };

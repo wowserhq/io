@@ -1,6 +1,6 @@
-import { Endianness, getStream, getType } from '../util.mjs';
+import { Endianness, getStream, validateType } from '../util.mjs';
 
-type StructFields = Record<string, Function | IoType>;
+type StructFields = Record<string, IoType>;
 
 type StructOptions = {
   endianness?: Endianness;
@@ -12,6 +12,11 @@ class StructIo implements IoType {
 
   constructor(fields: StructFields = {}, options: StructOptions = {}) {
     this.#fields = fields;
+
+    for (const type of Object.values(fields)) {
+      validateType(type);
+    }
+
     this.#options = options;
   }
 
@@ -30,7 +35,7 @@ class StructIo implements IoType {
     let size = 0;
 
     for (const [name, type] of Object.entries(this.#fields)) {
-      size += getType(type).getSize(value[name]);
+      size += type.getSize(value[name]);
     }
 
     return size;
@@ -44,7 +49,7 @@ class StructIo implements IoType {
     context.root = context.root ?? value;
 
     for (const [name, type] of Object.entries(this.#fields)) {
-      value[name] = getType(type).read(stream, context);
+      value[name] = type.read(stream, context);
     }
 
     return value;
@@ -57,7 +62,7 @@ class StructIo implements IoType {
     context.root = context.root ?? value;
 
     for (const [name, type] of Object.entries(this.#fields)) {
-      getType(type).write(stream, value[name], context);
+      type.write(stream, value[name], context);
     }
   }
 }
