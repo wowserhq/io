@@ -5,8 +5,11 @@ enum Endianness {
   Big = 2,
 }
 
-const getStream = (source: Source, endianness = Endianness.Little): Stream =>
-  isStream(source) ? (source as Stream) : openStream(source, endianness);
+const getStream = (
+  source: IoSource,
+  endianness = Endianness.Little,
+): IoStream =>
+  isStream(source) ? (source as IoStream) : openStream(source, endianness);
 
 const validateType = (type: IoType) => {
   if (typeof type.getSize !== 'function') {

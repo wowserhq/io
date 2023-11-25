@@ -1,6 +1,6 @@
 import { Endianness } from '../util.mjs';
 
-class ArrayBufferStream implements Stream {
+class ArrayBufferStream implements IoStream {
   #buffer: ArrayBuffer;
   #view: DataView;
   #endianness: Endianness;

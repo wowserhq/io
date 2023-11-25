@@ -28,7 +28,7 @@ class StringIo implements IoType {
     return this.#terminate ? encodedSize + 1 : encodedSize;
   }
 
-  #readRawBytes(stream: Stream, size: number | undefined) {
+  #readRawBytes(stream: IoStream, size: number | undefined) {
     if (typeof size === 'number') {
       const untrimmedBytes = stream.readBytes(size);
 
@@ -46,7 +46,7 @@ class StringIo implements IoType {
     return stream.readBytesTerminated(STRING_TERMINATOR);
   }
 
-  read(source: Source, context: Context = {}) {
+  read(source: IoSource, context: IoContext = {}) {
     const stream = getStream(source);
     const size = resolveValue(this.#options.size, context.local, context.root);
 
@@ -56,7 +56,7 @@ class StringIo implements IoType {
     return this.#options.reverse ? value.split('').reverse().join('') : value;
   }
 
-  write(source: Source, value: string, context: Context = {}) {
+  write(source: IoSource, value: string, context: IoContext = {}) {
     const stream = getStream(source);
 
     const finalValue = this.#options.reverse

@@ -55,7 +55,7 @@ class TlvIo implements IoType {
     return tagSize + lengthSize + valueSize;
   }
 
-  read(source: Source, context: Context = {}): Tlv {
+  read(source: IoSource, context: IoContext = {}): Tlv {
     const stream = getStream(source, this.#options.endianness);
 
     context.local = null;
@@ -80,7 +80,7 @@ class TlvIo implements IoType {
     };
   }
 
-  write(source: Source, value: Tlv, context: Context = {}) {
+  write(source: IoSource, value: Tlv, context: IoContext = {}) {
     const stream = getStream(source, this.#options.endianness);
 
     context.local = null;

@@ -41,7 +41,7 @@ class StructIo implements IoType {
     return size;
   }
 
-  read(source: Source, context: Context = {}) {
+  read(source: IoSource, context: IoContext = {}) {
     const stream = getStream(source, this.#options.endianness);
     const value = {};
 
@@ -55,7 +55,7 @@ class StructIo implements IoType {
     return value;
   }
 
-  write(source: Source, value: object, context: Context = {}) {
+  write(source: IoSource, value: object, context: IoContext = {}) {
     const stream = getStream(source, this.#options.endianness);
 
     context.local = value;
