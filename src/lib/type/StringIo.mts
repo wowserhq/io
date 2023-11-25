@@ -1,4 +1,5 @@
-import { getStream, resolveValue } from '../util.mjs';
+import { resolveValue } from '../util.mjs';
+import { openStream } from '../stream/util.mjs';
 
 const STRING_TERMINATOR = 0x00;
 const DEFAULT_ENCODING = 'utf-8';
@@ -47,7 +48,7 @@ class StringIo implements IoType {
   }
 
   read(source: IoSource, context: IoContext = {}) {
-    const stream = getStream(source);
+    const stream = openStream(source);
     const size = resolveValue(this.#options.size, context.local, context.root);
 
     const rawBytes = this.#readRawBytes(stream, size);
@@ -57,7 +58,7 @@ class StringIo implements IoType {
   }
 
   write(source: IoSource, value: string, context: IoContext = {}) {
-    const stream = getStream(source);
+    const stream = openStream(source);
 
     const finalValue = this.#options.reverse
       ? value.split('').reverse().join('')

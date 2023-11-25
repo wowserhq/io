@@ -16,7 +16,9 @@ const openStream = (
   source: IoSource,
   endianness = Endianness.Little,
 ): IoStream => {
-  if (typeof source === 'string' || typeof source === 'number') {
+  if (isStream(source)) {
+    return source as IoStream;
+  } else if (typeof source === 'string' || typeof source === 'number') {
     return new FsStream(source, endianness);
   } else if (ArrayBuffer.isView(source)) {
     return new ArrayBufferStream(
