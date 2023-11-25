@@ -8,7 +8,7 @@ class ArrayIo implements IoType {
   #type: IoType;
   #options: ArrayOptions;
 
-  constructor(type: IoType, options: ArrayOptions = {}) {
+  constructor(type: Function | IoType, options: ArrayOptions = {}) {
     if (type === undefined) {
       throw new Error('Missing required argument: type');
     }
@@ -65,3 +65,4 @@ class ArrayIo implements IoType {
 }
 
 export default ArrayIo;
+export { ArrayOptions };

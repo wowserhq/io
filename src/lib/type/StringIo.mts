@@ -72,3 +72,4 @@ class StringIo implements IoType {
 }
 
 export default StringIo;
+export { StringOptions };

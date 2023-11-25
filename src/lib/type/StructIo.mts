@@ -1,10 +1,16 @@
-import { getStream, getType } from '../util.mjs';
+import { Endianness, getStream, getType } from '../util.mjs';
+
+type StructFields = Record<string, Function | IoType>;
+
+type StructOptions = {
+  endianness?: Endianness;
+};
 
 class StructIo implements IoType {
-  #fields;
-  #options;
+  #fields: StructFields;
+  #options: StructOptions;
 
-  constructor(fields = {}, options = {}) {
+  constructor(fields: StructFields = {}, options: StructOptions = {}) {
     this.#fields = fields;
     this.#options = options;
   }
@@ -57,3 +63,4 @@ class StructIo implements IoType {
 }
 
 export default StructIo;
+export { StructFields, StructOptions };

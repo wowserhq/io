@@ -1,14 +1,16 @@
-import ArrayIo from './type/ArrayIo.mjs';
-import StringIo from './type/StringIo.mjs';
-import StructIo from './type/StructIo.mjs';
+import ArrayIo, { ArrayOptions } from './type/ArrayIo.mjs';
+import StringIo, { StringOptions } from './type/StringIo.mjs';
+import StructIo, { StructFields, StructOptions } from './type/StructIo.mjs';
 import TlvIo, { TlvValueCallback } from './type/TlvIo.mjs';
 import { getType } from './util.mjs';
 
-const array = (type, options) => new ArrayIo(type, options);
+const array = (type: Function | IoType, options: ArrayOptions) =>
+  new ArrayIo(type, options);
 
-const string = (options) => new StringIo(options);
+const string = (options: StringOptions) => new StringIo(options);
 
-const struct = (fields, options) => new StructIo(fields, options);
+const struct = (fields: StructFields, options: StructOptions) =>
+  new StructIo(fields, options);
 
 const tlv = (
   tagType: IoType,

@@ -5,22 +5,20 @@ enum Endianness {
   Big = 2,
 }
 
-const getStream = (source, endianness = Endianness.Little): Stream =>
-  isStream(source) ? source : openStream(source, endianness);
+const getStream = (source: Source, endianness = Endianness.Little): Stream =>
+  isStream(source) ? (source as Stream) : openStream(source, endianness);
 
-const getType = (type): IoType => {
-  if (typeof type === 'function') {
-    type = type();
-  }
+const getType = (type: Function | IoType): IoType => {
+  const resolvedType = typeof type === 'function' ? type() : type;
 
-  if (typeof type.read !== 'function') {
+  if (typeof resolvedType.read !== 'function') {
     throw new Error('Missing required function: read');
   }
 
-  return type;
+  return resolvedType;
 };
 
-const resolveValue = (ref, ...objects) => {
+const resolveValue = (ref: number | string, ...objects: object[]) => {
   if (ref === undefined || typeof ref === 'number') {
     return ref;
   }
