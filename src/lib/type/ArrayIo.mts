@@ -1,4 +1,4 @@
-import { getStream, getType } from '../util.mjs';
+import { getStream, validateType } from '../util.mjs';
 
 type ArrayOptions = {
   size?: number;
@@ -8,12 +8,14 @@ class ArrayIo implements IoType {
   #type: IoType;
   #options: ArrayOptions;
 
-  constructor(type: Function | IoType, options: ArrayOptions = {}) {
+  constructor(type: IoType, options: ArrayOptions = {}) {
     if (type === undefined) {
       throw new Error('Missing required argument: type');
     }
 
-    this.#type = getType(type);
+    validateType(type);
+
+    this.#type = type;
     this.#options = options;
   }
 

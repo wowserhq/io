@@ -2,9 +2,9 @@ import ArrayIo, { ArrayOptions } from './type/ArrayIo.mjs';
 import StringIo, { StringOptions } from './type/StringIo.mjs';
 import StructIo, { StructFields, StructOptions } from './type/StructIo.mjs';
 import TlvIo, { TlvValueCallback } from './type/TlvIo.mjs';
-import { getType } from './util.mjs';
+import { validateType } from './util.mjs';
 
-const array = (type: Function | IoType, options: ArrayOptions) =>
+const array = (type: IoType, options: ArrayOptions) =>
   new ArrayIo(type, options);
 
 const string = (options: StringOptions) => new StringIo(options);
@@ -189,7 +189,7 @@ const io = {
   float64,
   float64be,
   float64le,
-  getType,
+  validateType,
 };
 
 export default io;
