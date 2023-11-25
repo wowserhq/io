@@ -21,6 +21,7 @@
     "clean": "node ./script/clean.js",
     "format": "prettier ./src/**/* --write",
     "lint": "eslint --ignore-path .gitignore",
+    "lint:commit": "commitlint --edit",
     "prepublishOnly": "npm run build",
     "test": "npm run lint && vitest run",
     "prepare": "husky install"
@@ -29,10 +30,12 @@
     "wowser"
   ],
   "devDependencies": {
+    "@commitlint/config-conventional": "^18.4.3",
     "@types/node": "^20.9.3",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vitest/ui": "^0.34.6",
+    "commitlint": "^18.4.3",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "fs-extra": "^11.0.0",
