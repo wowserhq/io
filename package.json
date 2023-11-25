@@ -22,7 +22,7 @@
     "format": "prettier ./src/**/* --write",
     "lint": "eslint --ignore-path .gitignore",
     "prepublishOnly": "npm run build",
-    "test": "npm run lint && exit 0",
+    "test": "npm run lint && vitest run",
     "prepare": "husky install"
   },
   "keywords": [
@@ -32,12 +32,14 @@
     "@types/node": "^20.9.3",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
+    "@vitest/ui": "^0.34.6",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "fs-extra": "^11.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
     "prettier": "^3.1.0",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "vitest": "^0.34.6"
   }
 }
