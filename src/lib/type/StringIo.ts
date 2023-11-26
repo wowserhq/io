@@ -1,5 +1,5 @@
-import { resolveValue } from '../util.mjs';
-import { openStream } from '../stream/util.mjs';
+import { resolveValue } from '../util.js';
+import { openStream } from '../stream/util.js';
 
 const STRING_TERMINATOR = 0x00;
 const DEFAULT_ENCODING = 'utf-8';

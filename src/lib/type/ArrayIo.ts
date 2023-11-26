@@ -1,5 +1,5 @@
-import { validateType } from '../util.mjs';
-import { openStream } from '../stream/util.mjs';
+import { validateType } from '../util.js';
+import { openStream } from '../stream/util.js';
 
 type ArrayOptions = {
   size?: number;
