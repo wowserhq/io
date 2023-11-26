@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'vitest';
-import FsStream from '../lib/stream/FsStream.js';
-import ArrayBufferStream from '../lib/stream/ArrayBufferStream.js';
-import { openStream } from '../lib/stream/util.js';
+import FsStream from '../../lib/stream/FsStream.js';
+import ArrayBufferStream from '../../lib/stream/ArrayBufferStream.js';
+import { openStream } from '../../lib/stream/util.js';
 
-describe('getStream', () => {
+describe('openStream', () => {
   test('returns FsStream object when given path to file', () => {
     const stream = openStream('./fixture/fixture.bmp');
     expect(stream).toBeInstanceOf(FsStream);
