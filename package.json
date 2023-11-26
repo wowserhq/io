@@ -5,13 +5,13 @@
   "author": "Wowser Contributors",
   "repository": "github:wowserhq/io",
   "license": "MIT",
-  "main": "./dist/cjs/index.mjs",
-  "module": "./dist/esm/index.mjs",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "exports": {
-    "require": "./dist/cjs/index.mjs",
-    "import": "./dist/esm/index.mjs"
+    "require": "./dist/cjs/index.js",
+    "import": "./dist/esm/index.js"
   },
-  "types": "./dist/types/index.d.mts",
+  "types": "./dist/types/index.d.ts",
   "scripts": {
     "build": "npm run clean && npm run test && npm run build:cjs && npm run build:esm && npm run build:types && npm run build:package",
     "build:cjs": "tsc --module commonjs --outDir ./dist/cjs",

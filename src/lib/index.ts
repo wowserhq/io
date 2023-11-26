@@ -1,8 +1,8 @@
-import ArrayIo, { ArrayOptions } from './type/ArrayIo.mjs';
-import StringIo, { StringOptions } from './type/StringIo.mjs';
-import StructIo, { StructFields, StructOptions } from './type/StructIo.mjs';
-import TlvIo, { TlvValueCallback } from './type/TlvIo.mjs';
-import { validateType } from './util.mjs';
+import ArrayIo, { ArrayOptions } from './type/ArrayIo.js';
+import StringIo, { StringOptions } from './type/StringIo.js';
+import StructIo, { StructFields, StructOptions } from './type/StructIo.js';
+import TlvIo, { TlvValueCallback } from './type/TlvIo.js';
+import { validateType } from './util.js';
 
 const array = (type: IoType, options: ArrayOptions) =>
   new ArrayIo(type, options);
@@ -158,7 +158,7 @@ const float64le = {
   write: (stream: IoStream, value: number) => stream.writeFloat64Le(value),
 };
 
-const io = {
+export {
   array,
   string,
   struct,
@@ -191,5 +191,3 @@ const io = {
   float64le,
   validateType,
 };
-
-export default io;

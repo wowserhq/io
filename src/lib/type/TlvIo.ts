@@ -1,5 +1,5 @@
-import { Endianness } from '../util.mjs';
-import { openStream } from '../stream/util.mjs';
+import { Endianness } from '../util.js';
+import { openStream } from '../stream/util.js';
 
 type TlvValueCallback = (
   type: string | number,

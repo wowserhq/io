@@ -1,6 +1,6 @@
-import ArrayBufferStream from './ArrayBufferStream.mjs';
-import FsStream from './FsStream.mjs';
-import { Endianness } from '../util.mjs';
+import ArrayBufferStream from './ArrayBufferStream.js';
+import FsStream from './FsStream.js';
+import { Endianness } from '../util.js';
 
 const isStream = (ref: any) => {
   if (ref instanceof ArrayBufferStream) {

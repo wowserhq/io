@@ -1,5 +1,5 @@
 import fs from '../shim/fs.cjs';
-import { Endianness } from '../util.mjs';
+import { Endianness } from '../util.js';
 
 class FsStream implements IoStream {
   #fd: number;
