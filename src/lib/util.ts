@@ -1,3 +1,5 @@
+import { IoType } from './types.js';
+
 enum Endianness {
   Little = 1,
   Big = 2,

@@ -1,6 +1,7 @@
 import ArrayBufferStream from './ArrayBufferStream.js';
 import FsStream from './FsStream.js';
 import { Endianness } from '../util.js';
+import { IoSource, IoStream } from '../types.js';
 
 const isStream = (ref: any) => {
   if (ref instanceof ArrayBufferStream) {

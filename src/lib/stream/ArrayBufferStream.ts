@@ -1,4 +1,5 @@
 import { Endianness } from '../util.js';
+import { IoStream } from '../types.js';
 
 class ArrayBufferStream implements IoStream {
   #buffer: ArrayBuffer;

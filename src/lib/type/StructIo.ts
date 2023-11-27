@@ -1,5 +1,6 @@
 import { Endianness, validateType } from '../util.js';
 import { openStream } from '../stream/util.js';
+import { IoContext, IoSource, IoType } from '../types.js';
 
 type StructFields = Record<string, IoType>;
 
