@@ -3,6 +3,7 @@ import StringIo, { StringOptions } from './type/StringIo.js';
 import StructIo, { StructFields, StructOptions } from './type/StructIo.js';
 import TlvIo, { TlvValueCallback } from './type/TlvIo.js';
 import { validateType } from './util.js';
+import { openStream } from './stream/util.js';
 
 const array = (type: IoType, options: ArrayOptions) =>
   new ArrayIo(type, options);
@@ -189,5 +190,6 @@ export {
   float64,
   float64be,
   float64le,
+  openStream,
   validateType,
 };
