@@ -74,3 +74,5 @@ type IoType = {
   read: (source: IoSource, context: IoContext) => any;
   write?: (source: IoSource, value: any, context: IoContext) => any;
 };
+
+export { IoContext, IoSource, IoStream, IoType };

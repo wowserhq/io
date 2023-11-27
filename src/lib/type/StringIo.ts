@@ -1,5 +1,6 @@
 import { resolveValue } from '../util.js';
 import { openStream } from '../stream/util.js';
+import { IoContext, IoSource, IoStream, IoType } from '../types.js';
 
 const STRING_TERMINATOR = 0x00;
 const DEFAULT_ENCODING = 'utf-8';
