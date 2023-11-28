@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/wowserhq/io/compare/v1.2.0...v1.2.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* **struct:** use correct return type for read function ([f245d4a](https://github.com/wowserhq/io/commit/f245d4abacf6a48f2bc79c21674d63b7309744e2))
+* **types:** add missing types export directive to package file ([00463cd](https://github.com/wowserhq/io/commit/00463cdccbe058a77c9d18401f464cbdc1844152))
+
 ## [1.2.0](https://github.com/wowserhq/io/compare/v1.1.0...v1.2.0) (2023-11-28)
 
 
