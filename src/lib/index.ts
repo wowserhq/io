@@ -4,7 +4,7 @@ import StructIo, { StructFields, StructOptions } from './type/StructIo.js';
 import TlvIo, { TlvValueCallback } from './type/TlvIo.js';
 import { validateType } from './util.js';
 import { openStream } from './stream/util.js';
-import { IoStream, IoType } from './types.js';
+import { IoContext, IoSource, IoStream, IoType } from './types.js';
 
 const array = (type: IoType, options: ArrayOptions) =>
   new ArrayIo(type, options);
@@ -161,6 +161,10 @@ const float64le = {
 };
 
 export {
+  IoContext,
+  IoSource,
+  IoStream,
+  IoType,
   array,
   string,
   struct,
