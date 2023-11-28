@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/wowserhq/io/compare/v1.1.0...v1.2.0) (2023-11-28)
+
+
+### Features
+
+* **types:** export common types directly ([7411298](https://github.com/wowserhq/io/commit/7411298d700c90ee3345657872d479c741964164))
+
 ## [1.1.0](https://github.com/wowserhq/io/compare/v1.0.0...v1.1.0) (2023-11-27)
 
 
