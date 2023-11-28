@@ -45,7 +45,7 @@ class StructIo implements IoType {
 
   read(source: IoSource, context: IoContext = {}) {
     const stream = openStream(source, this.#options.endianness);
-    const value = {};
+    const value: Record<string, any> = {};
 
     context.local = value;
     context.root = context.root ?? value;
