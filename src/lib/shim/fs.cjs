@@ -1,5 +1,5 @@
 let fs;
-if (process?.versions?.node !== null) {
+if (typeof process !== 'undefined' && process?.versions?.node !== null) {
   fs = require('fs');
 }
 
