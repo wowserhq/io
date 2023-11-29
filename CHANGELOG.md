@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/wowserhq/io/compare/v1.2.1...v1.2.2) (2023-11-29)
+
+
+### Bug Fixes
+
+* **fs:** avoid throwing exception in node check conditional ([9f951f8](https://github.com/wowserhq/io/commit/9f951f87567c20e5240b062bf4c4e891750ebb42))
+
 ## [1.2.1](https://github.com/wowserhq/io/compare/v1.2.0...v1.2.1) (2023-11-28)
 
 
