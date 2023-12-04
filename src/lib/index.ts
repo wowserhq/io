@@ -6,12 +6,12 @@ import { validateType } from './util.js';
 import { openStream } from './stream/util.js';
 import { IoContext, IoSource, IoStream, IoType } from './types.js';
 
-const array = (type: IoType, options: ArrayOptions) =>
+const array = (type: IoType, options: ArrayOptions = {}) =>
   new ArrayIo(type, options);
 
-const string = (options: StringOptions) => new StringIo(options);
+const string = (options: StringOptions = {}) => new StringIo(options);
 
-const struct = (fields: StructFields, options: StructOptions) =>
+const struct = (fields: StructFields, options: StructOptions = {}) =>
   new StructIo(fields, options);
 
 const tlv = (
