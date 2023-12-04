@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/wowserhq/io/compare/v1.2.2...v1.3.0) (2023-12-04)
+
+
+### Features
+
+* make context optional for IoType read ([71a59ff](https://github.com/wowserhq/io/commit/71a59ffb15f49e58706ceb86e71a1b3907ecc183))
+* make options optional for array, string, and struct helpers ([29e9e82](https://github.com/wowserhq/io/commit/29e9e82bda3ebae7ba96f6d16b6718c18d52119d))
+
 ## [1.2.2](https://github.com/wowserhq/io/compare/v1.2.1...v1.2.2) (2023-11-29)
 
 
