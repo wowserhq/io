@@ -71,7 +71,7 @@ type IoStream = {
 
 type IoType = {
   getSize: (value: any) => number;
-  read: (source: IoSource, context: IoContext) => any;
+  read: (source: IoSource, context?: IoContext) => any;
   write?: (source: IoSource, value: any, context: IoContext) => any;
 };
 
