@@ -5,6 +5,11 @@ enum Endianness {
   Big = 2,
 }
 
+enum IoMode {
+  Read = 1,
+  Write = 2,
+}
+
 const validateType = (type: IoType) => {
   if (typeof type.getSize !== 'function') {
     throw new Error('Missing required function: getSize');
@@ -28,4 +33,4 @@ const resolveValue = (ref: number | string, ...objects: object[]) => {
   }
 };
 
-export { Endianness, validateType, resolveValue };
+export { Endianness, IoMode, validateType, resolveValue };

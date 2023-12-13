@@ -1,4 +1,4 @@
-import { Endianness } from '../util.js';
+import { Endianness, IoMode } from '../util.js';
 import { openStream } from '../stream/util.js';
 import { IoContext, IoSource, IoType } from '../types.js';
 
@@ -58,7 +58,7 @@ class TlvIo implements IoType {
   }
 
   read(source: IoSource, context: IoContext = {}): Tlv {
-    const stream = openStream(source, this.#options.endianness);
+    const stream = openStream(source, IoMode.Read, this.#options.endianness);
 
     context.local = null;
     context.root = context.root ?? null;
@@ -71,7 +71,11 @@ class TlvIo implements IoType {
 
     let valueValue = valueBytes;
     if (valueType && valueType.read) {
-      const valueStream = openStream(valueBytes, this.#options.endianness);
+      const valueStream = openStream(
+        valueBytes,
+        IoMode.Read,
+        this.#options.endianness,
+      );
       valueValue = valueType.read(valueStream, context);
     }
 
@@ -83,7 +87,7 @@ class TlvIo implements IoType {
   }
 
   write(source: IoSource, value: Tlv, context: IoContext = {}) {
-    const stream = openStream(source, this.#options.endianness);
+    const stream = openStream(source, IoMode.Write, this.#options.endianness);
 
     context.local = null;
     context.root = context.root ?? null;

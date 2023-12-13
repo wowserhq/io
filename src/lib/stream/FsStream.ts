@@ -1,5 +1,5 @@
 import fs from '../shim/fs.cjs';
-import { Endianness } from '../util.js';
+import { Endianness, IoMode } from '../util.js';
 import { IoStream } from '../types.js';
 
 class FsStream implements IoStream {
@@ -12,13 +12,17 @@ class FsStream implements IoStream {
   #littleEndian: boolean;
   #offset: number;
 
-  constructor(source: string | number, endianness = Endianness.Little) {
+  constructor(
+    source: string | number,
+    mode = IoMode.Read,
+    endianness = Endianness.Little,
+  ) {
     if (fs === undefined) {
       throw new Error('fs api unavailable');
     }
 
     if (typeof source === 'string') {
-      this.#fd = fs.openSync(source, 'r');
+      this.#fd = fs.openSync(source, mode === IoMode.Write ? 'w+' : 'r');
       this.#ownFd = true;
     } else if (typeof source === 'number') {
       this.#fd = source;
