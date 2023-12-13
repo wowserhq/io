@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/wowserhq/io/compare/v1.3.0...v1.4.0) (2023-12-13)
+
+
+### Features
+
+* add io modes ([#33](https://github.com/wowserhq/io/issues/33)) ([66cc67e](https://github.com/wowserhq/io/commit/66cc67e4ffe495b1254410ee2ab3cbec8bb20e22))
+
 ## [1.3.0](https://github.com/wowserhq/io/compare/v1.2.2...v1.3.0) (2023-12-04)
 
 
