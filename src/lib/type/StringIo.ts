@@ -1,4 +1,4 @@
-import { resolveValue } from '../util.js';
+import { IoMode, resolveValue } from '../util.js';
 import { openStream } from '../stream/util.js';
 import { IoContext, IoSource, IoStream, IoType } from '../types.js';
 
@@ -49,7 +49,7 @@ class StringIo implements IoType {
   }
 
   read(source: IoSource, context: IoContext = {}) {
-    const stream = openStream(source);
+    const stream = openStream(source, IoMode.Read);
     const size = resolveValue(this.#options.size, context.local, context.root);
 
     const rawBytes = this.#readRawBytes(stream, size);
@@ -59,7 +59,7 @@ class StringIo implements IoType {
   }
 
   write(source: IoSource, value: string, context: IoContext = {}) {
-    const stream = openStream(source);
+    const stream = openStream(source, IoMode.Write);
 
     const finalValue = this.#options.reverse
       ? value.split('').reverse().join('')

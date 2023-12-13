@@ -1,6 +1,6 @@
 import ArrayBufferStream from './ArrayBufferStream.js';
 import FsStream from './FsStream.js';
-import { Endianness } from '../util.js';
+import { Endianness, IoMode } from '../util.js';
 import { IoSource, IoStream } from '../types.js';
 
 const isStream = (ref: any) => {
@@ -15,12 +15,13 @@ const isStream = (ref: any) => {
 
 const openStream = (
   source: IoSource,
+  mode = IoMode.Read,
   endianness = Endianness.Little,
 ): IoStream => {
   if (isStream(source)) {
     return source as IoStream;
   } else if (typeof source === 'string' || typeof source === 'number') {
-    return new FsStream(source, endianness);
+    return new FsStream(source, mode, endianness);
   } else if (ArrayBuffer.isView(source)) {
     return new ArrayBufferStream(
       source.buffer,

@@ -1,4 +1,4 @@
-import { validateType } from '../util.js';
+import { IoMode, validateType } from '../util.js';
 import { openStream } from '../stream/util.js';
 import { IoContext, IoSource, IoType } from '../types.js';
 
@@ -32,7 +32,7 @@ class ArrayIo implements IoType {
   }
 
   read(source: IoSource, context: IoContext = {}) {
-    const stream = openStream(source);
+    const stream = openStream(source, IoMode.Read);
     const value = [];
     const size = this.#options.size;
 
@@ -53,7 +53,7 @@ class ArrayIo implements IoType {
   }
 
   write(source: IoSource, value: any[], context: IoContext = {}) {
-    const stream = openStream(source);
+    const stream = openStream(source, IoMode.Write);
     const size = value.length;
     const type = this.#type;
 

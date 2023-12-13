@@ -2,7 +2,7 @@ import ArrayIo, { ArrayOptions } from './type/ArrayIo.js';
 import StringIo, { StringOptions } from './type/StringIo.js';
 import StructIo, { StructFields, StructOptions } from './type/StructIo.js';
 import TlvIo, { TlvValueCallback } from './type/TlvIo.js';
-import { validateType } from './util.js';
+import { IoMode, validateType } from './util.js';
 import { openStream } from './stream/util.js';
 import { IoContext, IoSource, IoStream, IoType } from './types.js';
 
@@ -162,6 +162,7 @@ const float64le = {
 
 export {
   IoContext,
+  IoMode,
   IoSource,
   IoStream,
   IoType,

@@ -1,4 +1,4 @@
-import { Endianness, validateType } from '../util.js';
+import { Endianness, IoMode, validateType } from '../util.js';
 import { openStream } from '../stream/util.js';
 import { IoContext, IoSource, IoType } from '../types.js';
 
@@ -44,7 +44,7 @@ class StructIo implements IoType {
   }
 
   read(source: IoSource, context: IoContext = {}) {
-    const stream = openStream(source, this.#options.endianness);
+    const stream = openStream(source, IoMode.Read, this.#options.endianness);
     const value: Record<string, any> = {};
 
     context.local = value;
@@ -58,7 +58,7 @@ class StructIo implements IoType {
   }
 
   write(source: IoSource, value: object, context: IoContext = {}) {
-    const stream = openStream(source, this.#options.endianness);
+    const stream = openStream(source, IoMode.Write, this.#options.endianness);
 
     context.local = value;
     context.root = context.root ?? value;
