@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/wowserhq/io/compare/v1.5.0...v1.5.1) (2023-12-17)
+
+
+### Bug Fixes
+
+* **stream:** correct length calculation in terminated byte reads ([3f0a246](https://github.com/wowserhq/io/commit/3f0a246987e3f076ee84ca23193e7a49e54a06fc))
+
 ## [1.5.0](https://github.com/wowserhq/io/compare/v1.4.0...v1.5.0) (2023-12-17)
 
 
