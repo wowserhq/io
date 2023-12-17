@@ -66,6 +66,15 @@ class TlvIo implements IoType {
     const tagValue = this.#tagType.read(stream, context);
     const lengthValue = this.#lengthType.read(stream, context);
 
+    // Skip reading values for zero-length TLVs
+    if (lengthValue === 0) {
+      return {
+        tag: tagValue,
+        length: lengthValue,
+        value: null,
+      };
+    }
+
     const valueType = this.#valueCallback(tagValue, lengthValue);
     const valueBytes = stream.readBytes(lengthValue);
 
@@ -97,11 +106,14 @@ class TlvIo implements IoType {
     this.#lengthType.write(stream, value.length, context);
     const expectedEndOffset = stream.offset + value.length;
 
-    const valueType = this.#valueCallback(value.tag, value.length);
-    if (valueType && valueType.write) {
-      valueType.write(stream, value.value, context);
-    } else {
-      stream.writeBytes(value.value);
+    // Skip writing values for zero-length TLVs
+    if (value.length !== 0) {
+      const valueType = this.#valueCallback(value.tag, value.length);
+      if (valueType && valueType.write) {
+        valueType.write(stream, value.value, context);
+      } else {
+        stream.writeBytes(value.value);
+      }
     }
 
     // Account for underruns and overruns
