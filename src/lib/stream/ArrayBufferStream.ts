@@ -221,7 +221,7 @@ class ArrayBufferStream implements IoStream {
     return new Uint8Array(
       this.#buffer,
       this.#view.byteOffset + start,
-      start - end,
+      end - start,
     );
   }
 
