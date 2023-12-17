@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/wowserhq/io/compare/v1.4.0...v1.5.0) (2023-12-17)
+
+
+### Features
+
+* **tlv:** handle zero-length TLVs ([26527ca](https://github.com/wowserhq/io/commit/26527ca8cdaf0af661e4002238714b2c18e1db0b))
+
 ## [1.4.0](https://github.com/wowserhq/io/compare/v1.3.0...v1.4.0) (2023-12-13)
 
 
