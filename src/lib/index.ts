@@ -1,7 +1,7 @@
 import ArrayIo, { ArrayOptions } from './type/ArrayIo.js';
 import StringIo, { StringOptions } from './type/StringIo.js';
 import StructIo, { StructFields, StructOptions } from './type/StructIo.js';
-import TlvIo, { TlvValueCallback } from './type/TlvIo.js';
+import TlvIo from './type/TlvIo.js';
 import { IoMode, validateType } from './util.js';
 import { openStream } from './stream/util.js';
 import { IoContext, IoSource, IoStream, IoType } from './types.js';
@@ -17,8 +17,8 @@ const struct = (fields: StructFields, options: StructOptions = {}) =>
 const tlv = (
   tagType: IoType,
   lengthType: IoType,
-  valueCallback: TlvValueCallback,
-) => new TlvIo(tagType, lengthType, valueCallback);
+  valueTypes: Record<string | number, IoType>,
+) => new TlvIo(tagType, lengthType, valueTypes);
 
 const int8 = {
   getSize: (_value: number) => 1,

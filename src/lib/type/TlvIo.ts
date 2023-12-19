@@ -2,11 +2,6 @@ import { Endianness, IoMode } from '../util.js';
 import { openStream } from '../stream/util.js';
 import { IoContext, IoSource, IoType } from '../types.js';
 
-type TlvValueCallback = (
-  type: string | number,
-  length: number,
-) => IoType | undefined | null;
-
 type TlvOptions = {
   endianness?: Endianness;
 };
@@ -25,7 +20,7 @@ type Tlv = {
 class TlvIo implements IoType {
   #tagType: IoType;
   #lengthType: IoType;
-  #valueCallback: TlvValueCallback;
+  #valueTypes: Record<string | number, IoType>;
   #options: TlvOptions;
 
   /**
@@ -33,19 +28,19 @@ class TlvIo implements IoType {
    *
    * @param tagType - An IoType that resolves to a string or number.
    * @param lengthType - An IoType that resolves to a number.
-   * @param valueCallback - A function that returns any IoType from the given tag and length. If the callback returns
-   *   undefined or null, the value will be read as a Uint8Array.
+   * @param valueTypes - A record containing keys mapping possible tags to an appropriate IoType for use in reading the
+   *   value. If the record does not contain a corresponding IoType for a tag, the value will be read as a Uint8Array.
    * @param options
    */
   constructor(
     tagType: IoType,
     lengthType: IoType,
-    valueCallback: TlvValueCallback,
+    valueTypes: Record<string | number, IoType>,
     options: TlvOptions = {},
   ) {
     this.#tagType = tagType;
     this.#lengthType = lengthType;
-    this.#valueCallback = valueCallback;
+    this.#valueTypes = valueTypes;
     this.#options = options;
   }
 
@@ -75,7 +70,7 @@ class TlvIo implements IoType {
       };
     }
 
-    const valueType = this.#valueCallback(tagValue, lengthValue);
+    const valueType = this.#valueTypes[tagValue];
     const valueBytes = stream.readBytes(lengthValue);
 
     let valueValue = valueBytes;
@@ -108,7 +103,7 @@ class TlvIo implements IoType {
 
     // Skip writing values for zero-length TLVs
     if (value.length !== 0) {
-      const valueType = this.#valueCallback(value.tag, value.length);
+      const valueType = this.#valueTypes[value.tag];
       if (valueType && valueType.write) {
         valueType.write(stream, value.value, context);
       } else {
@@ -124,4 +119,3 @@ class TlvIo implements IoType {
 }
 
 export default TlvIo;
-export { TlvValueCallback };
