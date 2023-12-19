@@ -1,7 +1,7 @@
 import ArrayIo, { ArrayOptions } from './type/ArrayIo.js';
 import StringIo, { StringOptions } from './type/StringIo.js';
 import StructIo, { StructFields, StructOptions } from './type/StructIo.js';
-import TlvIo from './type/TlvIo.js';
+import TlvIo, { TlvOptions } from './type/TlvIo.js';
 import { IoMode, validateType } from './util.js';
 import { openStream } from './stream/util.js';
 import { IoContext, IoSource, IoStream, IoType } from './types.js';
@@ -18,7 +18,8 @@ const tlv = (
   tagType: IoType,
   lengthType: IoType,
   valueTypes: Record<string | number, IoType>,
-) => new TlvIo(tagType, lengthType, valueTypes);
+  options: TlvOptions = {},
+) => new TlvIo(tagType, lengthType, valueTypes, options);
 
 const int8 = {
   getSize: (_value: number) => 1,

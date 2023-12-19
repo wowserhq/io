@@ -119,3 +119,5 @@ class TlvIo implements IoType {
 }
 
 export default TlvIo;
+
+export { TlvOptions };
