@@ -2,12 +2,20 @@ import { Endianness, IoMode } from '../util.js';
 import { openStream } from '../stream/util.js';
 import { IoContext, IoSource, IoType } from '../types.js';
 
+type TlvTag = string | number;
+
 type TlvOptions = {
   endianness?: Endianness;
+
+  /**
+   * Certain TLV formats feature tags with padding after the specified length. These tags can be provided in the
+   * padding option, with values representing the number of bytes of expected padding after the length.
+   */
+  padding?: Record<TlvTag, number>;
 };
 
 type Tlv = {
-  tag: string | number;
+  tag: TlvTag;
   length: number;
   value: any;
 };
@@ -20,7 +28,7 @@ type Tlv = {
 class TlvIo implements IoType {
   #tagType: IoType;
   #lengthType: IoType;
-  #valueTypes: Record<string | number, IoType>;
+  #valueTypes: Record<TlvTag, IoType>;
   #options: TlvOptions;
 
   /**
@@ -35,7 +43,7 @@ class TlvIo implements IoType {
   constructor(
     tagType: IoType,
     lengthType: IoType,
-    valueTypes: Record<string | number, IoType>,
+    valueTypes: Record<TlvTag, IoType>,
     options: TlvOptions = {},
   ) {
     this.#tagType = tagType;
@@ -48,8 +56,9 @@ class TlvIo implements IoType {
     const tagSize = this.#tagType.getSize(value.tag);
     const lengthSize = this.#lengthType.getSize(value.length);
     const valueSize = value.length;
+    const paddingSize = this.#options.padding?.[value.tag] ?? 0;
 
-    return tagSize + lengthSize + valueSize;
+    return tagSize + lengthSize + valueSize + paddingSize;
   }
 
   read(source: IoSource, context: IoContext = {}): Tlv {
@@ -83,6 +92,10 @@ class TlvIo implements IoType {
       valueValue = valueType.read(valueStream, context);
     }
 
+    // If tag is padded, adjust offset accordingly
+    const padding = this.#options.padding?.[tagValue] ?? 0;
+    stream.offset += padding;
+
     return {
       tag: tagValue,
       length: lengthValue,
@@ -97,9 +110,12 @@ class TlvIo implements IoType {
     context.root = context.root ?? null;
 
     this.#tagType.write(stream, value.tag, context);
-
     this.#lengthType.write(stream, value.length, context);
-    const expectedEndOffset = stream.offset + value.length;
+
+    const padding = this.#options.padding?.[value.tag] ?? 0;
+
+    // Calculate expected offset after TLV value is fully written
+    const expectedEndOffset = stream.offset + value.length + padding;
 
     // Skip writing values for zero-length TLVs
     if (value.length !== 0) {
@@ -120,4 +136,4 @@ class TlvIo implements IoType {
 
 export default TlvIo;
 
-export { TlvOptions };
+export { TlvOptions, TlvTag };
