@@ -1,9 +1,4 @@
-import {
-  Endianness,
-  IoMode,
-  RUNTIME_ENDIANNESS,
-  validateType,
-} from '../util.js';
+import { Endianness, IoMode, validateType } from '../util.js';
 import { openStream } from '../stream/util.js';
 import { IoSource, IoType } from '../types.js';
 import * as io from '../io/numeric.js';
@@ -108,13 +103,6 @@ class TypedArrayIo implements IoType {
     this.#type = type;
     this.#options = options;
     this.#arrayConstructor = CONSTRUCTOR_MAP.get(this.#type);
-
-    // If type endianness matches runtime endianness, we'll back the typed array with raw bytes
-    this.#fastIo =
-      (RUNTIME_ENDIANNESS === Endianness.Little &&
-        EXPLICIT_LITTLE_ENDIAN.has(this.#type)) ||
-      (RUNTIME_ENDIANNESS === Endianness.Big &&
-        EXPLICIT_BIG_ENDIAN.has(this.#type));
   }
 
   getSize(value: any[]) {
@@ -140,12 +128,6 @@ class TypedArrayIo implements IoType {
 
     // Fixed size reads
 
-    if (this.#fastIo) {
-      const size = this.#type.getSize(undefined) * this.#options.size;
-      const bytes = stream.readBytes(size);
-      return new this.#arrayConstructor(bytes.buffer);
-    }
-
     const value = new this.#arrayConstructor(this.#options.size);
 
     for (let i = 0; i < this.#options.size; i++) {
@@ -159,12 +141,8 @@ class TypedArrayIo implements IoType {
     const stream = openStream(source, IoMode.Write, this.#options.endianness);
     const expectedEndOffset = stream.offset + this.getSize(undefined);
 
-    if (this.#fastIo) {
-      stream.writeBytes(new Uint8Array(value.buffer));
-    } else {
-      for (let i = 0; i < value.length; i++) {
-        this.#type.write(stream, value[i]);
-      }
+    for (let i = 0; i < value.length; i++) {
+      this.#type.write(stream, value[i]);
     }
 
     if (stream.offset !== expectedEndOffset) {
