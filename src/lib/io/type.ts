@@ -3,6 +3,7 @@ import ArrayIo, { ArrayOptions } from '../type/ArrayIo.js';
 import StringIo, { StringOptions } from '../type/StringIo.js';
 import StructIo, { StructFields, StructOptions } from '../type/StructIo.js';
 import TlvIo, { TlvOptions, TlvTag } from '../type/TlvIo.js';
+import TypedArrayIo, { TypedArrayOptions } from '../type/TypedArrayIo.js';
 
 const array = (type: IoType, options: ArrayOptions = {}) =>
   new ArrayIo(type, options);
@@ -19,4 +20,7 @@ const tlv = (
   options: TlvOptions = {},
 ) => new TlvIo(tagType, lengthType, valueTypes, options);
 
-export { array, string, struct, tlv };
+const typedArray = (type: IoType, options: TypedArrayOptions = {}) =>
+  new TypedArrayIo(type, options);
+
+export { array, string, struct, tlv, typedArray };
