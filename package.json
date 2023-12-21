@@ -1,6 +1,6 @@
 {
   "name": "@wowserhq/io",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "IO library for Wowser",
   "author": "Wowser Contributors",
   "repository": "github:wowserhq/io",
