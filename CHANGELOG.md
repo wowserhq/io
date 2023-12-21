@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/wowserhq/io/compare/v2.0.0...v2.0.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* **typedarray:** remove fast io path until we properly check for alignment ([cf726d7](https://github.com/wowserhq/io/commit/cf726d705707c5da3978b914816cad77b006741a))
+
 ## [2.0.0](https://github.com/wowserhq/io/compare/v1.5.1...v2.0.0) (2023-12-21)
 
 
