@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.0](https://github.com/wowserhq/io/compare/v1.5.1...v2.0.0) (2023-12-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tlv:** The value type callback mechanism for TlvIo has been simplified: tag-to-value-type mappings should now be provided as properties on a plain JavaScript object.
+
+### Features
+
+* make context optional for IoType write ([c8f2ea0](https://github.com/wowserhq/io/commit/c8f2ea07213e80c2e535d1ea2fc31c973ea791b8))
+* **tlv:** add padding option ([67b4ff1](https://github.com/wowserhq/io/commit/67b4ff1f3a73ad894f7db9b4b866d2f88907ebc3))
+* **tlv:** simplify value type selection in TlvIo ([4768072](https://github.com/wowserhq/io/commit/47680721c3d92ddf04f78539daf541ff7c060b11))
+* **typedarray:** add TypedArrayIo type for efficient typed array handling ([09102b7](https://github.com/wowserhq/io/commit/09102b700271e80ba24711650914c37660c6f331))
+
+
+### Bug Fixes
+
+* **tlv:** pass options through tlv helper ([23f1d46](https://github.com/wowserhq/io/commit/23f1d4637121471a538aad37ef1a6c469cd561bc))
+
 ## [1.5.1](https://github.com/wowserhq/io/compare/v1.5.0...v1.5.1) (2023-12-17)
 
 
