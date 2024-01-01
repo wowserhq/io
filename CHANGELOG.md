@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/wowserhq/io/compare/v2.0.1...v2.0.2) (2024-01-01)
+
+
+### Bug Fixes
+
+* **string:** properly offset trimmed buffer ([1f20fe4](https://github.com/wowserhq/io/commit/1f20fe44c580700669a9f2198ce2bc4f35e97343))
+
 ## [2.0.1](https://github.com/wowserhq/io/compare/v2.0.0...v2.0.1) (2023-12-21)
 
 
