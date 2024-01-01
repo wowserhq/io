@@ -37,7 +37,7 @@ class StringIo implements IoType {
       if (this.#terminate && untrimmedBytes.at(-1) === STRING_TERMINATOR) {
         return new Uint8Array(
           untrimmedBytes.buffer,
-          0,
+          untrimmedBytes.byteOffset,
           untrimmedBytes.byteLength - 1,
         );
       } else {
